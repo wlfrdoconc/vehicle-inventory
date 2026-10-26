@@ -42,13 +42,13 @@ public class VehicleInventory {
                     findVehiclesByMakeModel(inventory, read);
                     break;
                 case 3:
-                    System.out.println("TEST 3");
+                    findVehiclesByPriceRange(inventory, read);
                     break;
                 case 4:
-                    System.out.println("TEST 4");
+                    findVehiclesByColor(inventory, read);
                     break;
                 case 5:
-                    System.out.println("TEST 5");
+                    vehicleCount = addAVehicle(inventory, vehicleCount, read);
                     break;
                 case 6:
                     System.out.println("See you later!");
@@ -97,7 +97,7 @@ public class VehicleInventory {
 
     // findVehiclesByMakeModel()
     public static void findVehiclesByMakeModel(Vehicle[] inventory, Scanner read) {
-        System.out.println("=== Find Make/Model ===");
+        System.out.println("=== Find Vehicle by Make/Model ===");
 
         System.out.print("Enter the vehicle make/model: ");
         String enteredMakeModel = read.nextLine();
@@ -116,12 +116,50 @@ public class VehicleInventory {
     }
 
     // findVehiclesByPriceRange()
-    public static void findVehiclesByPriceRange() {
+    public static void findVehiclesByPriceRange(Vehicle[] inventory, Scanner read) {
+        System.out.println("=== Find Vehicle by Price Range ===");
 
+        // Prompt user for the minimum price
+        System.out.print("Enter the minimum price: ");
+        double minPrice = read.nextDouble();
+
+        // Prompt user for the maximum price
+        System.out.print("Enter the maximum price: ");
+        double maxPrice = read.nextDouble();
+
+        // If Price is in between minPrice and maxPrice, print vehicles within that range
+        for (Vehicle vehicle: inventory) {
+            if (vehicle != null) {
+                if (vehicle.getPrice() >= minPrice && vehicle.getPrice() <= maxPrice) {
+                    System.out.println("ID: " + vehicle.getVehicleId()
+                            + " | Make/Model: " + vehicle.getMakeModel()
+                            + " | Color: " + vehicle.getColor()
+                            + " | Odometer Reading: " + vehicle.getOdometerReading()
+                            + " | Price $: " + vehicle.getPrice());
+                }
+            }
+        }
     }
 
     // findVehiclesByColor()
-    public static void findVehiclesByColor() {
+    public static void findVehiclesByColor(Vehicle[] inventory, Scanner read) {
+        System.out.println("=== Find Vehicle by Color ===");
+
+        // Prompt user for the color of vehicles they're looking for
+        System.out.print("Enter the color of vehicles you're looking for: ");
+        String enteredColor = read.nextLine();
+
+        for (Vehicle vehicle: inventory) {
+            if (vehicle != null) {
+                if (enteredColor.equalsIgnoreCase(vehicle.getColor())) { // Returns a vehicle with a matching color
+                    System.out.println("ID: " + vehicle.getVehicleId()
+                            + " | Make/Model: " + vehicle.getMakeModel()
+                            + " | Color: " + vehicle.getColor()
+                            + " | Odometer Reading: " + vehicle.getOdometerReading()
+                            + " | Price $: " + vehicle.getPrice());
+                }
+            }
+        }
 
     }
 
